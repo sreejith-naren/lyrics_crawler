@@ -21,5 +21,15 @@ def get_songs(artist_url):
     links=tracklists.find_all("a")
     for i in links:
         songs.append((i.text,i['href']))
-    return songs    
+    return songs  
+
+def get_lyrics(song_url):
+    r = requests.get(song_url)
+    body = r.content
+    soup = BeautifulSoup(body, features="html.parser")
+    lyrics_div = soup.find("p", {"id": "songLyricsDiv"})
+    lyrics = lyrics_div.text
+    return lyrics    
+
+
 
